@@ -1,4 +1,4 @@
-Package: gamlss.copula
+Package: gamlss2.copula
 Title: Generating and Fitting Bivariate Copulas within 'gamlss2'.
 Version: 0.0-1
 Date: 2025-08-21
