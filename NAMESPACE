@@ -1,2 +1,7 @@
 # Functions
 export(gen.copula)
+import(gamlss.dist)
+import(pbivnorm)
+import(gamlss2)
+import(sn)
+

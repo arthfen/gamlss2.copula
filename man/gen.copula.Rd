@@ -73,48 +73,23 @@
 }
 \author{Arthur Fendrich \email{arthur.fendrich@ec.europa.eu}, Elise Van Eynde, Mikis Stasinopoulos and Bob Rigby}
 
-\examples{
-library(copula)
+\examples{\dontrun{
 library(gamlss2)
 library(gamlss.dist)
-library(gamlss.copula)
+library(gamlss2.copula)
 
-## Generates two log-modified families
-gen.Family('SN2', type = 'log')
-gen.Family('SEP4', type = 'log')
+## Generates one log- and one logit-modified families
+gen.Family('NO', type = 'logit')
+gen.Family('PE', type = 'log')
 
 ## Generates the bivariate copula
-gen.copula('logSN2', 'logSEP4', 'PL', name = 'copula')
-
-## Defines the parameter formulas
-eq.mu1 <- y ~ 1
-eq.sigma1 <- eq.nu1 <- ~ 1
-eq.mu2 <- eq.sigma2 <- eq.nu2 <- eq.tau2 <- ~ 1
-eq.theta <- ~ 1
-eq.lst <- list(eq.mu1, eq.sigma1, eq.nu1,
-	eq.mu2, eq.sigma2, eq.nu2, eq.tau2,
-	eq.theta)
-
-## Simulates some data with known parameters
-set.seed(1)
-xy <- rCopula(2500, plackettCopula(param = 3))
-y.m1 <- qlogSN2(xy[,1], mu = 1, sigma = 0.75, nu = 0.5)
-y.m2 <- qlogSEP4(xy[,2], mu = 0, sigma = 1.2, nu = 2.4, tau = 1)
-
-## Estimates the model
-n <- length(y.m1)
-y <- c(y.m1, y.m2)
-b <- gamlss2(eq.lst, data = data.frame(y = y), family = copula,
-	control = gamlss2_control(maxit = c(1000, 10)))
-
-## Validation below
-predict(b)[1,]
+gen.copula('logitNO', 'logPE', 'FR', name = 'copula')
 
 ## Plots log-density of this copula
-plot.copula(m1.mu = 1, m1.sigma = 0.75, m1.nu = 0.5,
-	m2.mu = 0, m2.sigma = 1.2, m2.nu = 2.4, m2.tau = 1,
+plot.copula(m1.mu = 0, m1.sigma = 0.5,
+	m2.mu = 2, m2.sigma = 0.1, m2.nu = 2,
 	theta = 3, log = TRUE, plot = TRUE)
-}
+}}
 \keyword{distribution}
 \keyword{regression}
 \keyword{bivariate}
